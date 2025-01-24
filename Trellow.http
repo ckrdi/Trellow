@@ -1,0 +1,6 @@
+@Trellow_HostAddress = http://localhost:5157
+
+GET {{Trellow_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
