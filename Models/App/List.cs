@@ -16,6 +16,6 @@
 
         public DateTime UpdatedAt { get; set; }
 
-        public DateTime DeletedAt { get; set; }
+        public DateTime? DeletedAt { get; set; }
     }
 }

@@ -1,13 +1,11 @@
 ﻿using Trellow.Data;
+using Trellow.Interfaces.App;
 using Trellow.Models.App;
 using Trellow.Repositories.Base;
 
 namespace Trellow.Repositories.App
 {
-    public class MemberRepository : Repository<AppDbContext, Member>
+    public class MemberRepository(AppDbContext context) : Repository<AppDbContext, Member>(context), IMemberRepository
     {
-        public MemberRepository(AppDbContext context) : base(context)
-        {
-        }
     }
 }

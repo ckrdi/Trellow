@@ -1,6 +1,7 @@
 ﻿namespace Trellow.Interfaces.Base
 {
     public interface IRepository<TModel>
+        where TModel : Models.Base.Model, new()
     {
         Task<TModel?> ReadAsync(int id);
 
@@ -17,5 +18,7 @@
         Task<bool> UpdateManyAsync(IEnumerable<TModel> models);
 
         Task<bool> DeleteManyAsync(IEnumerable<TModel> models);
+
+        Task<bool> IsDataExistsAsync(int id);
     }
 }

@@ -1,13 +1,11 @@
 ﻿using Trellow.Data;
+using Trellow.Interfaces.App;
 using Trellow.Models.App;
 using Trellow.Repositories.Base;
 
 namespace Trellow.Repositories.App
 {
-    public class CommentRepository : Repository<AppDbContext, Comment>
+    public class CommentRepository(AppDbContext context) : Repository<AppDbContext, Comment>(context), ICommentRepository
     {
-        public CommentRepository(AppDbContext context) : base(context)
-        {
-        }
     }
 }

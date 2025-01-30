@@ -1,6 +1,6 @@
-﻿namespace Trellow.Models.App
+﻿namespace Trellow.Controllers.Requests.Epic
 {
-    public class Epic : Base.Model
+    public class CreateRequest
     {
         public string? Code { get; set; }
 
@@ -19,11 +19,5 @@
         public int? AssigneeId { get; set; }
 
         public bool IsDummy { get; set; }
-
-        public DateTime CreatedAt { get; set; }
-
-        public DateTime UpdatedAt { get; set; }
-
-        public DateTime? DeletedAt { get; set; }
     }
 }

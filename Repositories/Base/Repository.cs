@@ -3,7 +3,7 @@ using Trellow.Interfaces.Base;
 
 namespace Trellow.Repositories.Base
 {
-    public abstract class Repository<TContext, TModel> : IRepository<TModel>
+    public class Repository<TContext, TModel> : IRepository<TModel>
         where TContext : DbContext, new()
         where TModel : Models.Base.Model, new()
     {
@@ -14,7 +14,7 @@ namespace Trellow.Repositories.Base
             _context = context;
         }
 
-        public virtual async Task<TModel?> ReadAsync(int id)
+        public async Task<TModel?> ReadAsync(int id)
         {
             var dbSet = _context.Set<TModel>();
             var model = await dbSet.FindAsync(id);
@@ -23,7 +23,7 @@ namespace Trellow.Repositories.Base
             return model;
         }
 
-        public virtual async Task<TModel> InsertAsync(TModel model)
+        public async Task<TModel> InsertAsync(TModel model)
         {
             var dbSet = _context.Set<TModel>();
             dbSet.Add(model);
@@ -32,7 +32,7 @@ namespace Trellow.Repositories.Base
             return model;
         }
 
-        public virtual async Task<TModel?> UpdateAsync(TModel model)
+        public async Task<TModel?> UpdateAsync(TModel model)
         {
             var dbSet = _context.Set<TModel>();
             var currentModel = await dbSet.FindAsync(model.Id);
@@ -45,7 +45,7 @@ namespace Trellow.Repositories.Base
             return model;
         }
 
-        public virtual async Task<TModel?> DeleteAsync(int id)
+        public async Task<TModel?> DeleteAsync(int id)
         {
             var dbSet = _context.Set<TModel>();
 
@@ -58,7 +58,7 @@ namespace Trellow.Repositories.Base
             return model;
         }
 
-        public virtual async Task<IEnumerable<TModel>> ReadAllAsync()
+        public async Task<IEnumerable<TModel>> ReadAllAsync()
         {
             var dbSet = _context.Set<TModel>();
             var models = await dbSet.ToListAsync();
@@ -66,7 +66,7 @@ namespace Trellow.Repositories.Base
             return models;
         }
 
-        public virtual async Task<bool> InsertManyAsync(IEnumerable<TModel> models)
+        public async Task<bool> InsertManyAsync(IEnumerable<TModel> models)
         {
             var dbSet = _context.Set<TModel>();
             foreach (var model in models)
@@ -79,7 +79,7 @@ namespace Trellow.Repositories.Base
             return numObj > 0;
         }
 
-        public virtual async Task<bool> UpdateManyAsync(IEnumerable<TModel> models)
+        public async Task<bool> UpdateManyAsync(IEnumerable<TModel> models)
         {
             var dbSet = _context.Set<TModel>();
             foreach (var model in models)
@@ -95,7 +95,7 @@ namespace Trellow.Repositories.Base
             return numObj > 0;
         }
 
-        public virtual async Task<bool> DeleteManyAsync(IEnumerable<TModel> models)
+        public async Task<bool> DeleteManyAsync(IEnumerable<TModel> models)
         {
             var dbSet = _context.Set<TModel>();
             foreach (var model in models)
@@ -109,6 +109,13 @@ namespace Trellow.Repositories.Base
             var numObj = await _context.SaveChangesAsync();
 
             return numObj > 0;
+        }
+
+        public async Task<bool> IsDataExistsAsync(int id)
+        {
+            var dbSet = _context.Set<TModel>();
+
+            return await dbSet.AnyAsync(e => e.Id == id);
         }
     }
 }
